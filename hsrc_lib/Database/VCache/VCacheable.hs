@@ -32,6 +32,13 @@ instance VCacheable Integer where
     {-# INLINE get #-}
     {-# INLINE put #-}
 
+instance VCacheable Float where
+    get = encodeFloat <$> get <*> get
+    put f =
+        let (a, b) = decodeFloat f
+        put a
+        put b
+
 instance VCacheable Bool where
     get = getWord8 >>= \ n -> case n of
         0 -> return False
