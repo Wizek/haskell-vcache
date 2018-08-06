@@ -34,7 +34,7 @@ instance VCacheable Integer where
 
 instance VCacheable Float where
     get = encodeFloat <$> get <*> get
-    put f =
+    put f = do
         let (a, b) = decodeFloat f
         put a
         put b
